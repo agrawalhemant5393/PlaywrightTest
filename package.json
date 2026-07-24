@@ -1,0 +1,22 @@
+{
+  "name": "playwrighttest",
+  "version": "1.0.0",
+  "description": "This framework is developed for students to understand Playwright frameworks",
+  "main": "index.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/agrawalhemant5393/PlaywrightTest.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/agrawalhemant5393/PlaywrightTest/issues"
+  },
+  "homepage": "https://github.com/agrawalhemant5393/PlaywrightTest#readme",
+  "devDependencies": {
+    "@playwright/test": "^1.61.1",
+    "@types/node": "^26.1.1"
+  }
+}
