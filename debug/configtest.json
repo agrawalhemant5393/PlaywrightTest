@@ -1,0 +1,77 @@
+{
+  "argv": [
+    "C:\\Program Files\\nodejs\\node.exe",
+    "C:\\Hemant_Work\\Codes\\PlaywrightAuto\\PlaywrightTest\\node_modules\\@playwright\\test\\cli.js",
+    "test",
+    "--headed",
+    "../tests/demo/mytest.spec.ts"
+  ],
+  "configFile": "C:\\Hemant_Work\\Codes\\PlaywrightAuto\\PlaywrightTest\\playwright.config.ts",
+  "rootDir": "C:\\Hemant_Work\\Codes\\PlaywrightAuto\\PlaywrightTest\\tests",
+  "failOnFlakyTests": false,
+  "forbidOnly": false,
+  "fullyParallel": true,
+  "globalSetup": null,
+  "globalTeardown": null,
+  "grep": {},
+  "grepInvert": null,
+  "maxFailures": 0,
+  "metadata": { "actualWorkers": 1 },
+  "preserveOutput": "always",
+  "projects": [
+    {
+      "grep": {},
+      "grepInvert": null,
+      "outputDir": "C:\\Hemant_Work\\Codes\\PlaywrightAuto\\PlaywrightTest\\test-results",
+      "repeatEach": 1,
+      "retries": 0,
+      "metadata": {},
+      "name": "chromium",
+      "testDir": "C:\\Hemant_Work\\Codes\\PlaywrightAuto\\PlaywrightTest\\tests",
+      "snapshotDir": "C:\\Hemant_Work\\Codes\\PlaywrightAuto\\PlaywrightTest\\tests",
+      "testIgnore": [],
+      "testMatch": "**/*.@(spec|test).?(c|m)[jt]s?(x)",
+      "timeout": 30000,
+      "use": {
+        "trace": "on-first-retry",
+        "ignoreHTTPSErrors": true,
+        "navigationTimeout": 30000,
+        "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.7827.55 Safari/537.36",
+        "viewport": { "width": 1280, "height": 720 },
+        "screen": { "width": 1920, "height": 1080 },
+        "deviceScaleFactor": 1,
+        "isMobile": false,
+        "hasTouch": false,
+        "defaultBrowserType": "chromium",
+        "headless": false
+      },
+      "dependencies": [],
+      "ignoreSnapshots": false,
+      "__projectId": "chromium"
+    }
+  ],
+  "quiet": false,
+  "reporter": [
+    ["html", { "open": "never" }],
+    [
+      "C:\\Hemant_Work\\Codes\\PlaywrightAuto\\PlaywrightTest\\node_modules\\allure-playwright\\dist\\cjs\\index.js",
+      {
+        "detail": true,
+        "suiteTitle": true,
+        "environmentInfo": {
+          "name": "Test",
+          "appName": "CURA",
+          "Release": "1.1"
+        }
+      }
+    ]
+  ],
+  "reportSlowTests": { "max": 5, "threshold": 300000 },
+  "shard": null,
+  "tags": [],
+  "updateSnapshots": "missing",
+  "updateSourceMethod": "patch",
+  "version": "1.61.1",
+  "workers": 8,
+  "webServer": null
+}

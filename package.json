@@ -4,14 +4,16 @@
   "description": "This framework is developed for students to understand Playwright frameworks",
   "main": "index.js",
   "scripts": {
-    "demo":"playwright test --headed ../tests/demo/mytest.spec.ts",
-    "login":"npx playwright test --headed ../tests/functional/login.spec.ts",
-    "make-apt":"npx playwright test --headed ../tests/functional/make.apt.spec.ts",
-    "ele-init":"npx playwright test --headed ../tests/demo/ele.handling.spec.ts",
-    "inventory":"npx playwright test --headed ../tests/functional/inventory.spec.ts",
-    "debug":"npx playwright test --headed ../tests/demo/debug.make.apt.spec.ts --debug",
-    "debug_ui":"npx playwright test --headed ../tests/demo/debug.make.apt.spec.ts --debug --ui",
-    "debug_cli":"PWDEBUG=1 npx playwright test ../tests/demo/debug.make.apt.spec.ts"
+    "demo": "playwright test --headed ../tests/demo/mytest.spec.ts",
+    "login": "npx playwright test --headed ../tests/functional/login.spec.ts",
+    "make-apt": "npx playwright test --headed ../tests/functional/make.apt.spec.ts",
+    "ele-init": "npx playwright test --headed ../tests/demo/ele.handling.spec.ts",
+    "inventory": "npx playwright test --headed ../tests/functional/inventory.spec.ts",
+    "debug": "npx playwright test --headed ../tests/demo/debug.make.apt.spec.ts --debug",
+    "debug_ui": "npx playwright test --headed ../tests/demo/debug.make.apt.spec.ts --debug --ui",
+    "debug_cli": "set PWDEBUG=1&& npx playwright test ../tests/demo/debug.make.apt.spec.ts",
+    "debug_trace": "npx playwright test ../tests/demo/debug.make.apt.spec.ts --trace on --headed",
+    "pw-basic-cap": "npx playwright test ../tests/demo/pw.basic.cap.make.apt.spec.ts --headed"
   },
   "repository": {
     "type": "git",
@@ -26,6 +28,7 @@
   "homepage": "https://github.com/agrawalhemant5393/PlaywrightTest#readme",
   "devDependencies": {
     "@playwright/test": "^1.61.1",
-    "@types/node": "^26.1.1"
+    "@types/node": "^26.1.1",
+    "allure-playwright": "^3.10.2"
   }
 }
