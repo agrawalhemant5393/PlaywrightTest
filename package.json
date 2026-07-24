@@ -3,7 +3,16 @@
   "version": "1.0.0",
   "description": "This framework is developed for students to understand Playwright frameworks",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "demo":"playwright test --headed ../tests/demo/mytest.spec.ts",
+    "login":"npx playwright test --headed ../tests/functional/login.spec.ts",
+    "make-apt":"npx playwright test --headed ../tests/functional/make.apt.spec.ts",
+    "ele-init":"npx playwright test --headed ../tests/demo/ele.handling.spec.ts",
+    "inventory":"npx playwright test --headed ../tests/functional/inventory.spec.ts",
+    "debug":"npx playwright test --headed ../tests/demo/debug.make.apt.spec.ts --debug",
+    "debug_ui":"npx playwright test --headed ../tests/demo/debug.make.apt.spec.ts --debug --ui",
+    "debug_cli":"PWDEBUG=1 npx playwright test ../tests/demo/debug.make.apt.spec.ts"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/agrawalhemant5393/PlaywrightTest.git"
