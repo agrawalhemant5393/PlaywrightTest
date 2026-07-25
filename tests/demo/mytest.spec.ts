@@ -1,130 +1,61 @@
-/**
- * @file mytest.spec.ts
- * @description Introductory Playwright tests for the CURA Healthcare Service demo app.
- *
- * This file covers three key scenarios:
- *   1. Basic page verification  — title and heading assertion
- *   2. Happy-path login flow    — navigate → fill credentials → log in  (@smoke)
- *   3. Failed login validation  — wrong password → assert error message (@smoke)
- *
- * Target app: https://katalon-demo-cura.herokuapp.com/
- * Run this file: npx playwright test tests/demo/mytest.spec.ts
- * Run smoke tag:  npx playwright test --grep @smoke
- *
- * NOTE: The `test.only` on the third test means ONLY that test runs when this
- * file is executed in isolation. Remove `.only` to run all three tests.
- */
+import { test, expect, devices } from "@playwright/test";
+import constants from "../../data/constants.json";
 
-import { test, expect } from "@playwright/test";
+test("Should load homepage with correct title", async ({ page }) => {
+    // 1. Go to the home page
+    await page.goto("https://katalon-demo-cura.herokuapp.com/");
 
-/**
- * Test: First Playwright Test
- *
- * A minimal sanity check — opens the CURA homepage and asserts:
- *  - The browser tab title equals "CURA Healthcare Service"
- *  - The main <h1> heading contains the same text
- *
- * This is a good starting point to verify the site is reachable before
- * running more complex scenarios.
- */
-test("First Playwright Test", async ({ page }) => {
-  await page.goto("https://katalon-demo-cura.herokuapp.com/");
+    // 2. Assert if the title is correct
+    await expect(page).toHaveTitle("CURA Healthcare Service");
 
-  // Verify page title shown in the browser tab.
-  await expect(page).toHaveTitle("CURA Healthcare Service");
-
-  // Verify main heading on the page using an XPath locator.
-  await expect(page.locator("//h1")).toHaveText("CURA Healthcare Service");
+    // 3. Assert header text
+    await expect(page.locator("//h1")).toHaveText("CURA Healthcare Service");
 });
 
-/**
- * Test: Should do something  [@smoke]
- *
- * Demonstrates the happy-path login flow:
- *  1. Navigate to the CURA homepage.
- *  2. Verify the page loaded correctly (title + heading).
- *  3. Click the "Make Appointment" link to reach the login page.
- *  4. Enter valid credentials and submit the login form.
- *
- * `testInfo` is injected by Playwright and contains metadata about the running
- * test (name, title, status, retry number, etc.) — useful for reporting / logging.
- *
- * Tagged @smoke so it can be targeted with: npx playwright test --grep @smoke
- */
 test("Should do something", { tag: "@smoke" }, async ({ page }, testInfo) => {
-  await page.goto("https://katalon-demo-cura.herokuapp.com/");
-
-  // Verify page title shown in the browser tab.
-  await expect(page).toHaveTitle("CURA Healthcare Service");
-
-  // Verify main heading on the page using an XPath locator.
-  await expect(page.locator("//h1")).toHaveText("CURA Healthcare Service");
-
-  // Navigate to the login page by clicking the "Make Appointment" link.
-  await page.getByRole("link", { name: "Make Appointment" }).click();
-
-  // Fill in valid credentials.
-  await page.getByLabel("Username").fill("John Doe");
-  await page.getByLabel("Password").fill("ThisIsNotAPassword");
-
-  // Submit the login form.
-  await page.getByRole("button", { name: "Login" }).click();
+    // steps..
+    await page.locator("//h1").click();
 });
 
-/**
- * Test: Should prevent login  [@smoke]
- *
- * Verifies that the application shows a clear error message when a user
- * submits an incorrect password, and does NOT proceed to the booking page.
- *
- * Steps:
- *  1. Navigate to the CURA homepage and confirm the page loads.
- *  2. Click "Make Appointment" to open the login form.
- *  3. Enter a valid username but an INCORRECT password.
- *  4. Submit the form.
- *  5. Assert the error banner is present and contains the expected text.
- *
- * `test.only` — only this test runs when this file is executed; remove it
- * to enable all three tests in this file to run together.
- *
- * Tagged @smoke so it can be targeted with: npx playwright test --grep @smoke
- */
-test("Should prevent login", { tag: "@smoke" }, async ({ page }, testInfo) => {
-  await page.goto("https://katalon-demo-cura.herokuapp.com/");
+test("Should demo locators", async ({ page }) => {
+    // ✅ `page.getBy*()` and `page.locator()` methods returns the `locator` object
+    // ✅ The above methods not to be `awaited`
+    // ✅ The type of locator is an `object`
+    // ✅ Locators are LAZY until an action is fired on them
 
-  // Verify page title shown in the browser tab.
-  await expect(page).toHaveTitle("CURA Healthcare Service");
+    // 1. Launch URL
+    await page.goto("https://katalon-demo-cura.herokuapp.com/");
 
-  // Verify main heading on the page using an XPath locator.
-  await expect(page.locator("//h1")).toHaveText("CURA Healthcare Service");
+    // 2. Click on the Make Appointment
+    let makeAppmtBtn = page.getByRole("link", { name: "Invalid Locator" });
+    // console.log(`>> The type of locator: ${typeof makeAppmtBtn}, The value of the locator is: ${JSON.stringify(makeAppmtBtn)}`);
+    await makeAppmtBtn.click();
+    // await expect(page.getByText("Please login to make")).toBeVisible();
 
-  // Store the locator in a variable so we can reuse it and log its details.
-  let makeappt = page.getByRole("link", { name: "Make Appointment" });
-  await makeappt.click();
-
-  // Log the locator description and its JSON representation for debugging.
-  console.log(
-    `Locator type ${makeappt} and value is ${JSON.stringify(makeappt)}`,
-  );
-
-  // Fill in a valid username.
-  await page.getByLabel("Username").fill("John Doe");
-
-  // Fill in an INCORRECT password to trigger the login error.
-  await page.getByLabel("Password").fill("ThisAPassword");
-
-  // Submit the login form.
-  await page.getByRole("button", { name: "Login" }).click();
-
-  // Click on the error message element to ensure it is interactive / visible.
-  await page.getByText("Login failed! Please ensure").click();
-
-  // Assert that the #login container shows the full expected error message.
-  await expect(page.locator("#login")).toContainText(
-    "Login failed! Please ensure the username and password are valid.",
-  );
+    // await page.getByRole('heading', { name: 'We Care About Your Health' }).click()
 });
 
-test.only("should demo config file", async ({ page }, testInfo) => {
-  console.log(`Config at runtime : ${JSON.stringify(testInfo.config)}`);
+test("Should demo config file", async ({ page }, testInfo) => {
+    console.log(`>> Config at run-time: ${JSON.stringify(testInfo.config)}`);
 });
+
+test("Should demo fixtures", async ({ request }, testInfo) => {
+    // console.log(`>> The test runs on ${browserName}`);
+});
+
+test("Should demo devices", async ({ page }, testInfo) => {
+    console.log(`>> The list of devies: ${Object.keys(devices)}`);
+});
+
+test("Should demo parallel run 1", { tag: "@demo" }, async ({ page }, testInfo) => {
+    await page.goto("https://www.google.com");
+});
+
+test("Should demo parallel run 2", { tag: "@demo" }, async ({ page }, testInfo) => {
+    await page.goto("https://www.google.com");
+});
+
+test("Should demo constants data", async ({ page }, testInfo) => {
+    console.log(`>> Constants data: ${JSON.stringify(constants.STATUSCODE)}`);
+});
+

@@ -41,9 +41,11 @@ test.describe("Make Appointment", async () => {
     // Click the navigation link to reach the login form.
     await page.getByRole("link", { name: "Make Appointment" }).click();
 
+    //AutoWaiting
     // Enter the valid username.
-    await page.getByLabel("Username").fill("John Doe");
-
+    let Username =  page.getByLabel("Username")
+    // await Username.fill("John Doe");;
+    Username.check()
     // Enter the correct (demo) password.
     await page.getByLabel("Password").fill("ThisIsNotAPassword");
 

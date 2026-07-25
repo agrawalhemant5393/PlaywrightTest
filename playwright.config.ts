@@ -1,12 +1,18 @@
 import { defineConfig, devices } from "@playwright/test";
+import dotenv from 'dotenv'
+import path from "node:path";
+dotenv.config({path: path.resolve(__dirname,'.env')})
 
 
-console.log(">>Hello config file")
+console.log(">>Hello config file");
 
-export default defineConfig({
+export const baseConfig =  defineConfig({
   testDir: "./tests",
 
-  fullyParallel: true,
+  fullyParallel: false,
+  expect: { timeout: 10_000 },
+  globalSetup: require.resolve("./tests/helpers/global-setup.ts"),
+  globalTeardown:require.resolve("./tests/helpers/global-teardown.ts"),
 
   reporter: [
     ["html", { open: "never" }],
@@ -31,18 +37,23 @@ export default defineConfig({
     /** Suppress SSL certificate errors — useful for self-signed certs in dev/staging. */
     ignoreHTTPSErrors: true,
     navigationTimeout: 30_000,
-    screenshot: 'on'
+    screenshot: "on",
   },
 
   projects: [
     {
       /** Run tests in a headless Chromium (Google Chrome-compatible) browser. */
       name: "chromium",
-      use: { ...devices["Desktop Chrome"] },
+      use: {
+        ...devices["Desktop Chrome"],
+        launchOptions: {
+          args: ["--start-maximized"],
+        },
+      },
     },
 
-    // ── Firefox ─────────────────────────────────────────────────────────────
-    // Uncomment to also run the full suite in Firefox.
+    // // ── Firefox ─────────────────────────────────────────────────────────────
+    // // Uncomment to also run the full suite in Firefox.
     // {
     //   name: 'firefox',
     //   use: { ...devices['Desktop Firefox'] },
@@ -57,10 +68,10 @@ export default defineConfig({
 
     // ── Mobile viewports ────────────────────────────────────────────────────
     // Uncomment to emulate mobile devices (touch events, viewport size, UA).
-    // {
-    //   name: 'Mobile Chrome',
-    //   use: { ...devices['Pixel 5'] },
-    // },
+    {
+      name: 'Mobile Chrome',
+      use: { ...devices['Pixel 5'] },
+    },
     // {
     //   name: 'Mobile Safari',
     //   use: { ...devices['iPhone 12'] },

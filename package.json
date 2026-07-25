@@ -13,7 +13,13 @@
     "debug_ui": "npx playwright test --headed ../tests/demo/debug.make.apt.spec.ts --debug --ui",
     "debug_cli": "set PWDEBUG=1&& npx playwright test ../tests/demo/debug.make.apt.spec.ts",
     "debug_trace": "npx playwright test ../tests/demo/debug.make.apt.spec.ts --trace on --headed",
-    "pw-basic-cap": "npx playwright test ../tests/demo/pw.basic.cap.make.apt.spec.ts --headed"
+    "pw-basic-cap": "npx playwright test ../tests/demo/pw.basic.cap.make.apt.spec.ts --headed",
+    "pw-adv-cap": "npx playwright test ../tests/demo/pw.adv.cap.make.apt.spec.ts --headed",
+    "hooks:demo": "playwright test --headed ../tests/demo/hooks.demo.spec.ts",
+    "demo:global": "playwright test --headed ../tests/demo/hooks.demo.spec.ts",
+    "demo:params": "npx playwright test --headed ../tests/demo/params.make.apt.spec.ts",
+    "test:make-apt": "npx playwright test --headed --config=config/test.config.playwright.ts ../tests/functional/make.apt.spec.ts",
+    "dev:make-apt": "npx playwright test --headed --config=config/dev.config.playwright.ts ../tests/functional/make.apt.spec.ts"
   },
   "repository": {
     "type": "git",
@@ -29,6 +35,11 @@
   "devDependencies": {
     "@playwright/test": "^1.61.1",
     "@types/node": "^26.1.1",
-    "allure-playwright": "^3.10.2"
+    "allure-playwright": "^3.10.2",
+    "dotenv": "^17.4.2",
+    "ts-node": "^10.9.2"
+  },
+  "dependencies": {
+    "path": "^0.12.7"
   }
 }

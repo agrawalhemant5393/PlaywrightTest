@@ -36,8 +36,10 @@ test.describe("Make Appointment", async () => {
    *
    * After this hook completes, the browser is on the appointment booking form.
    */
-  test.beforeEach("Login", async ({ page }) => {
-    await page.goto("https://katalon-demo-cura.herokuapp.com/");
+  test.beforeEach("Login", async ({ page }, testInfo) => {
+    const envConfig = testInfo.project.use as any
+    await page.goto(envConfig.APPurl)
+    // await page.goto("https://katalon-demo-cura.herokuapp.com/");
 
     // Click the navigation link to reach the login form.
     await page.getByRole("link", { name: "Make Appointment" }).click();
@@ -71,8 +73,9 @@ test.describe("Make Appointment", async () => {
    *  - The booked facility matches the selected option.
    *  - The "Go to Homepage" link is visible on the confirmation page.
    */
-  test("test", async ({ page }) => {
+  test("test", async ({ page },testInfo) => {
     // Step 1: Select the healthcare facility from the Facility dropdown.
+    console.log(`>>Curent Config: \n ${JSON.stringify(testInfo.config)} `)
     await page
       .getByLabel("Facility")
       .selectOption("Hongkong CURA Healthcare Center");
