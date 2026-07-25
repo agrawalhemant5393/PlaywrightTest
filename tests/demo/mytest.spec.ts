@@ -56,6 +56,6 @@ test("Should demo parallel run 2", { tag: "@demo" }, async ({ page }, testInfo) 
 });
 
 test("Should demo constants data", async ({ page }, testInfo) => {
-    console.log(`>> Constants data: ${JSON.stringify(constants.STATUSCODE)}`);
+    console.log(`>> Constants data: ${JSON.stringify(constants.STATUSCODES)}`);
 });
 

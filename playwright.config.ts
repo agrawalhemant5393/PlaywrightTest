@@ -1,18 +1,17 @@
 import { defineConfig, devices } from "@playwright/test";
-import dotenv from 'dotenv'
+import dotenv from "dotenv";
 import path from "node:path";
-dotenv.config({path: path.resolve(__dirname,'.env')})
-
+dotenv.config({ path: path.resolve(__dirname, ".env") });
 
 console.log(">>Hello config file");
 
-export const baseConfig =  defineConfig({
+export const baseConfig = defineConfig({
   testDir: "./tests",
 
   fullyParallel: false,
   expect: { timeout: 10_000 },
   globalSetup: require.resolve("./tests/helpers/global-setup.ts"),
-  globalTeardown:require.resolve("./tests/helpers/global-teardown.ts"),
+  globalTeardown: require.resolve("./tests/helpers/global-teardown.ts"),
 
   reporter: [
     ["html", { open: "never" }],
@@ -38,6 +37,8 @@ export const baseConfig =  defineConfig({
     ignoreHTTPSErrors: true,
     navigationTimeout: 30_000,
     screenshot: "on",
+    userAgent:
+      "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
   },
 
   projects: [
@@ -47,7 +48,12 @@ export const baseConfig =  defineConfig({
       use: {
         ...devices["Desktop Chrome"],
         launchOptions: {
-          args: ["--start-maximized"],
+          args: [
+            "--start-maximized",
+            "--disable-blink-features=AutomationControlled",
+            "--disable-features=IsolateOrigins,site-per-process",
+            "--allow-no-sandbox-job",
+          ],
         },
       },
     },
@@ -69,8 +75,17 @@ export const baseConfig =  defineConfig({
     // ── Mobile viewports ────────────────────────────────────────────────────
     // Uncomment to emulate mobile devices (touch events, viewport size, UA).
     {
-      name: 'Mobile Chrome',
-      use: { ...devices['Pixel 5'] },
+      name: "Mobile Chrome",
+      use: {
+        ...devices["Pixel 5"],
+        launchOptions: {
+          args: [
+            "--disable-blink-features=AutomationControlled",
+            "--disable-features=IsolateOrigins,site-per-process",
+            "--allow-no-sandbox-job",
+          ],
+        },
+      },
     },
     // {
     //   name: 'Mobile Safari',
